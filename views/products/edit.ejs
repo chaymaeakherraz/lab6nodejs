@@ -1,0 +1,56 @@
+<h1>Modifier le produit</h1>
+
+<% if (error) { %>
+  <div class="alert alert-danger"><%= error %></div>
+<% } %>
+
+<form action="/products/<%= product._id %>/update" method="POST" class="card p-4 shadow-sm">
+  <div class="mb-3">
+    <label class="form-label">Nom</label>
+    <input type="text" name="name" class="form-control" value="<%= product.name %>" required>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Prix</label>
+    <input type="number" name="price" class="form-control" step="0.01" min="0" value="<%= product.price %>" required>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Catégorie</label>
+    <select name="category" class="form-select">
+      <% categories.forEach(category => { %>
+        <option value="<%= category %>" <%= product.category === category ? 'selected' : '' %>>
+          <%= category %>
+        </option>
+      <% }) %>
+    </select>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Quantité</label>
+    <input type="number" name="quantity" class="form-control" min="0" value="<%= product.quantity %>">
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Description</label>
+    <textarea name="description" class="form-control" rows="4"><%= product.description || '' %></textarea>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Tags</label>
+    <input type="text" name="tags" class="form-control" value="<%= product.tags ? product.tags.join(', ') : '' %>">
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Image URL</label>
+    <input type="text" name="imageUrl" class="form-control" value="<%= product.imageUrl || '' %>">
+  </div>
+
+  <div class="mb-3 form-check">
+    <input type="checkbox" name="inStock" class="form-check-input" <%= product.inStock ? 'checked' : '' %>>
+    <label class="form-check-label">En stock</label>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Modifier</button>
+  <a href="/products" class="btn btn-secondary mt-2">Annuler</a>
+</form>

@@ -1,0 +1,47 @@
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h1>Liste des produits</h1>
+  <a href="/products/create" class="btn btn-primary">Ajouter un produit</a>
+</div>
+
+<% if (products.length === 0) { %>
+  <div class="alert alert-info">
+    Aucun produit disponible.
+  </div>
+<% } else { %>
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    <% products.forEach(product => { %>
+      <div class="col">
+        <div class="card h-100 shadow-sm">
+          <img src="<%= product.imageUrl %>" class="card-img-top" alt="<%= product.name %>">
+
+          <div class="card-body">
+            <h5 class="card-title"><%= product.name %></h5>
+            <p class="text-muted"><%= product.category %></p>
+            <p><strong><%= product.price.toFixed(2) %> €</strong></p>
+
+            <p>
+              <%= product.description ? product.description.substring(0, 100) : 'Aucune description' %>
+            </p>
+
+            <% if (product.inStock) { %>
+              <span class="badge bg-success">En stock</span>
+            <% } else { %>
+              <span class="badge bg-danger">Rupture</span>
+            <% } %>
+          </div>
+
+          <div class="card-footer">
+            <a href="/products/<%= product._id %>" class="btn btn-sm btn-info">Voir</a>
+            <a href="/products/edit/<%= product._id %>" class="btn btn-sm btn-warning">Modifier</a>
+
+            <form action="/products/<%= product._id %>/delete" method="POST" class="d-inline">
+              <button class="btn btn-sm btn-danger" onclick="return confirm('Supprimer ce produit ?')">
+                Supprimer
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+<% } %>

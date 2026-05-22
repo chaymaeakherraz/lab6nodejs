@@ -1,0 +1,36 @@
+<div class="card shadow-sm">
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <h1><%= product.name %></h1>
+
+    <div>
+      <a href="/products/edit/<%= product._id %>" class="btn btn-warning">Modifier</a>
+
+      <form action="/products/<%= product._id %>/delete" method="POST" class="d-inline">
+        <button class="btn btn-danger" onclick="return confirm('Supprimer ce produit ?')">
+          Supprimer
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <div class="card-body">
+    <img src="<%= product.imageUrl %>" class="img-fluid mb-3" style="max-width:300px">
+
+    <p><strong>Prix :</strong> <%= product.price.toFixed(2) %> €</p>
+    <p><strong>Catégorie :</strong> <%= product.category %></p>
+    <p><strong>Quantité :</strong> <%= product.quantity %></p>
+    <p><strong>Stock :</strong> <%= product.inStock ? 'En stock' : 'Rupture de stock' %></p>
+    <p><strong>Description :</strong> <%= product.description || 'Aucune description' %></p>
+
+    <% if (product.tags && product.tags.length > 0) { %>
+      <p><strong>Tags :</strong></p>
+      <% product.tags.forEach(tag => { %>
+        <span class="badge bg-secondary"><%= tag %></span>
+      <% }) %>
+    <% } %>
+  </div>
+
+  <div class="card-footer">
+    <a href="/products" class="btn btn-secondary">Retour</a>
+  </div>
+</div>

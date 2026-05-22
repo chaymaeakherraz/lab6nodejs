@@ -1,0 +1,54 @@
+<h1>Ajouter un produit</h1>
+
+<% if (error) { %>
+  <div class="alert alert-danger"><%= error %></div>
+<% } %>
+
+<form action="/products/create" method="POST" class="card p-4 shadow-sm">
+  <div class="mb-3">
+    <label class="form-label">Nom</label>
+    <input type="text" name="name" class="form-control" required>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Prix</label>
+    <input type="number" name="price" class="form-control" step="0.01" min="0" required>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Catégorie</label>
+    <select name="category" class="form-select">
+      <% categories.forEach(category => { %>
+        <option value="<%= category %>"><%= category %></option>
+      <% }) %>
+    </select>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Quantité</label>
+    <input type="number" name="quantity" class="form-control" min="0" value="0">
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Description</label>
+    <textarea name="description" class="form-control" rows="4"></textarea>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Tags</label>
+    <input type="text" name="tags" class="form-control" placeholder="ex: pc, portable, électronique">
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Image URL</label>
+    <input type="text" name="imageUrl" class="form-control">
+  </div>
+
+  <div class="mb-3 form-check">
+    <input type="checkbox" name="inStock" class="form-check-input" checked>
+    <label class="form-check-label">En stock</label>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Ajouter</button>
+  <a href="/products" class="btn btn-secondary mt-2">Annuler</a>
+</form>
